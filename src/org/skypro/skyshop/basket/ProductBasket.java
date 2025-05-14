@@ -28,10 +28,13 @@ public class ProductBasket {
             System.out.println("в корзине пусто");
             return;
         }
+
+        int total = 0;
         for (int i = 0; i < size; i++) {
             System.out.println(products[i].getName() + ": " + products[i].getPrice());
+            total += products[i].getPrice();
         }
-        System.out.println("Итого: " + getTotalPrice());
+        System.out.println("Итого: " + total);
     }
 
     public boolean containsProduct(String productName) {
@@ -50,3 +53,4 @@ public class ProductBasket {
         size = 0;
     }
 }
+
