@@ -2,24 +2,30 @@ package org.skypro.skyshop.product;
 
 public class FixPriceProduct extends Product {
 
-    private static final int FIXED_PRICE = 500; // Фиксированная цена
+    private final int price;
 
-    public FixPriceProduct(String name) {
-        super(name); // Вызываем конструктор родительского класса
+    public FixPriceProduct(String name, int price) {
+        super(name);
+        this.price = price;
     }
 
     @Override
     public int getPrice() {
-        return FIXED_PRICE; // Возвращаем фиксированную цену
+        return price;
     }
 
     @Override
     public boolean isSpecial() {
-        return true; // Продукт с фиксированной ценой считается специальным
+        return false; // или true, если продукт специальный
+    }
+
+    @Override
+    public String getType() {
+        return "PRODUCT"; // тип объекта для поиска
     }
 
     @Override
     public String toString() {
-        return getName() + ": Фиксированная цена " + FIXED_PRICE; // Формируем строку
+        return getName() + ": фиксированная цена " + price;
     }
 }

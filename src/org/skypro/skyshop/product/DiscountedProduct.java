@@ -16,12 +16,17 @@ public class DiscountedProduct extends Product {
     }
 
     @Override
-    public String toString() {
-        return getName() + ": " + getPrice() + " (" + discountPercent + "%)";
+    public boolean isSpecial() {
+        return true;
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
+    public String toString() {
+        return getName() + ": " + getPrice() + " (" + discountPercent + "% скидка)";
+    }
+
+    @Override
+    public String getType() {
+        return "PRODUCT";
     }
 }
