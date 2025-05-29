@@ -24,4 +24,40 @@ public class SearchEngine {
         }
         return results.toArray(new Searchable[0]);
     }
+
+    // ✅ Новый метод
+    public Searchable findBestResult(String query) throws BestResultNotFound {
+        int maxCount = 0;
+        Searchable best = null;
+
+        for (Searchable item : items) {
+            String term = item.getSearchTerm();
+            int count = countOccurrences(term, query);
+
+            if (count > maxCount) {
+                maxCount = count;
+                best = item;
+            }
+        }
+
+        if (best == null || maxCount == 0) {
+            throw new BestResultNotFound(query);
+        }
+
+        return best;
+    }
+
+    // 🔧 Вспомогательный метод для подсчёта вхождений подстроки
+    private int countOccurrences(String text, String sub) {
+        int count = 0;
+        int index = 0;
+
+        while ((index = text.indexOf(sub, index)) != -1) {
+            count++;
+            index += sub.length();
+        }
+
+        return count;
+    }
 }
+

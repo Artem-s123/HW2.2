@@ -30,5 +30,21 @@ public class App {
 
         results = searchEngine.search("полезно");
         System.out.println(Arrays.toString(results));
+
+        // Добавлено: Поиск самого подходящего результата
+        try {
+            Searchable best = searchEngine.findBestResult("молоко");
+            System.out.println("Лучший результат по запросу 'молоко': " + best);
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Searchable best = searchEngine.findBestResult("арбуз");
+            System.out.println("Лучший результат по запросу 'арбуз': " + best);
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
     }
 }
+
