@@ -33,4 +33,3 @@ public abstract class Product implements Searchable {
         return name.toLowerCase().contains(query.toLowerCase());
     }
 }
-

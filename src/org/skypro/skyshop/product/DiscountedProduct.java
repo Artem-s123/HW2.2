@@ -37,4 +37,9 @@ public class DiscountedProduct extends Product {
     public String getType() {
         return "PRODUCT";
     }
+
+    @Override
+    public String getSearchTerm() {
+        return getName(); // Для корректного поиска
+    }
 }

@@ -15,17 +15,16 @@ public class SearchEngine {
         items.add(item);
     }
 
-    public Searchable[] search(String query) {
+    public List<Searchable> search(String query) {
         List<Searchable> results = new ArrayList<>();
         for (Searchable item : items) {
             if (item.matches(query)) {
                 results.add(item);
             }
         }
-        return results.toArray(new Searchable[0]);
+        return results;
     }
 
-    // ✅ Новый метод
     public Searchable findBestResult(String query) throws BestResultNotFound {
         int maxCount = 0;
         Searchable best = null;
@@ -47,7 +46,6 @@ public class SearchEngine {
         return best;
     }
 
-    // 🔧 Вспомогательный метод для подсчёта вхождений подстроки
     private int countOccurrences(String text, String sub) {
         int count = 0;
         int index = 0;

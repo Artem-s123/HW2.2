@@ -3,13 +3,13 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.*;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
         SearchEngine searchEngine = new SearchEngine(10);
 
-        // Создаем товары (предположим, у тебя есть классы SimpleProduct, DiscountedProduct и т.д.)
+        // Создаем товары
         Product product1 = new SimpleProduct("Молоко", 60);
         Product product2 = new DiscountedProduct("Хлеб", 40, 10);
         searchEngine.add(product1);
@@ -22,16 +22,11 @@ public class App {
         searchEngine.add(article2);
 
         // Поиск
-        Searchable[] results = searchEngine.search("молоко");
-        System.out.println(Arrays.toString(results));
+        printResults(searchEngine.search("молоко"));
+        printResults(searchEngine.search("хлеб"));
+        printResults(searchEngine.search("полезно"));
 
-        results = searchEngine.search("хлеб");
-        System.out.println(Arrays.toString(results));
-
-        results = searchEngine.search("полезно");
-        System.out.println(Arrays.toString(results));
-
-        // Добавлено: Поиск самого подходящего результата
+        // Поиск самого подходящего результата
         try {
             Searchable best = searchEngine.findBestResult("молоко");
             System.out.println("Лучший результат по запросу 'молоко': " + best);
@@ -46,5 +41,17 @@ public class App {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
+
+    private static void printResults(List<Searchable> results) {
+        if (results.isEmpty()) {
+            System.out.println("Ничего не найдено.");
+        } else {
+            for (Searchable item : results) {
+                System.out.println(item);
+            }
+        }
+        System.out.println();
+    }
 }
+
 

@@ -12,17 +12,18 @@ public class Article implements Searchable {
 
     @Override
     public String getSearchTerm() {
-        return content;  // Поиск по содержанию статьи
+        // Для поиска используем и название, и содержание
+        return name + " " + content;
     }
 
     @Override
     public String getType() {
-        return "ARTICLE"; // Тип объекта
+        return "ARTICLE";
     }
 
     @Override
     public String getName() {
-        return name; // Возвращаем имя статьи
+        return name;
     }
 
     @Override

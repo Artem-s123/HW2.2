@@ -30,5 +30,9 @@ public class SimpleProduct extends Product {
     public String getType() {
         return "PRODUCT";
     }
-}
 
+    @Override
+    public String getSearchTerm() {
+        return getName(); // теперь поиск и findBestResult будут работать корректно
+    }
+}
