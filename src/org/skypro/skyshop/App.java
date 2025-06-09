@@ -4,6 +4,7 @@ import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class App {
         searchEngine.add(article1);
         searchEngine.add(article2);
 
-        // Поиск
+        // Поиск (с Map)
         printResults(searchEngine.search("молоко"));
         printResults(searchEngine.search("хлеб"));
         printResults(searchEngine.search("полезно"));
@@ -42,16 +43,14 @@ public class App {
         }
     }
 
-    private static void printResults(List<Searchable> results) {
+    private static void printResults(Map<String, Searchable> results) {
         if (results.isEmpty()) {
             System.out.println("Ничего не найдено.");
         } else {
-            for (Searchable item : results) {
-                System.out.println(item);
+            for (Map.Entry<String, Searchable> entry : results.entrySet()) {
+                System.out.println(entry.getValue());
             }
         }
         System.out.println();
     }
 }
-
-

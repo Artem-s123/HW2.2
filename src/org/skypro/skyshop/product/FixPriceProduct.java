@@ -19,16 +19,21 @@ public class FixPriceProduct extends Product {
 
     @Override
     public boolean isSpecial() {
-        return false; // или true, если продукт специальный
+        return false; // или true, если нужно пометить как спец. товар
     }
 
     @Override
     public String getType() {
-        return "PRODUCT"; // тип объекта для поиска
+        return "PRODUCT"; // Тип объекта для поиска
     }
 
     @Override
     public String toString() {
         return getName() + ": фиксированная цена " + price;
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return getName(); // Поиск по названию
     }
 }

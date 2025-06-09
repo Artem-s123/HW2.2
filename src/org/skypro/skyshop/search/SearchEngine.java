@@ -1,7 +1,6 @@
 package org.skypro.skyshop.search;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
 
@@ -15,11 +14,12 @@ public class SearchEngine {
         items.add(item);
     }
 
-    public List<Searchable> search(String query) {
-        List<Searchable> results = new ArrayList<>();
+    // 🔄 Обновлённый метод поиска — теперь возвращает отсортированную Map
+    public Map<String, Searchable> search(String query) {
+        Map<String, Searchable> results = new TreeMap<>();
         for (Searchable item : items) {
             if (item.matches(query)) {
-                results.add(item);
+                results.put(item.getName(), item); // ключ = имя, значение = сам объект
             }
         }
         return results;
@@ -58,4 +58,3 @@ public class SearchEngine {
         return count;
     }
 }
-
