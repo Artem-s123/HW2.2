@@ -4,24 +4,30 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private final List<Searchable> items;
+    private final Set<Searchable> items;
 
-    public SearchEngine(int capacity) {
-        this.items = new ArrayList<>(capacity);
+    public SearchEngine() {
+        this.items = new HashSet<>();
     }
 
     public void add(Searchable item) {
-        items.add(item);
+        items.add(item); // HashSet не позволит добавить дубликат (если equals/hashCode работают правильно)
     }
 
-    // 🔄 Обновлённый метод поиска — теперь возвращает отсортированную Map
-    public Map<String, Searchable> search(String query) {
-        Map<String, Searchable> results = new TreeMap<>();
+    // 🔎 Метод поиска — теперь возвращает отсортированный TreeSet
+    public Set<Searchable> search(String query) {
+        Comparator<Searchable> comparator = Comparator
+                .comparingInt((Searchable s) -> s.getName().length()).reversed()
+                .thenComparing(Searchable::getName);
+
+        Set<Searchable> results = new TreeSet<>(comparator);
+
         for (Searchable item : items) {
             if (item.matches(query)) {
-                results.put(item.getName(), item); // ключ = имя, значение = сам объект
+                results.add(item);
             }
         }
+
         return results;
     }
 
