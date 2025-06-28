@@ -1,5 +1,7 @@
 package org.skypro.skyshop.product;
 
+import java.util.Objects;
+
 public class SimpleProduct extends Product {
     private final int price;
 
@@ -33,6 +35,19 @@ public class SimpleProduct extends Product {
 
     @Override
     public String getSearchTerm() {
-        return getName(); // теперь поиск и findBestResult будут работать корректно
+        return getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product that = (Product) o;
+        return Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName());
     }
 }

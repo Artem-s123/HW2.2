@@ -3,6 +3,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductBasket {
     private final Map<String, List<Product>> products = new HashMap<>();
@@ -12,32 +13,26 @@ public class ProductBasket {
         products.computeIfAbsent(product.getName(), k -> new ArrayList<>()).add(product);
     }
 
-    // Общая стоимость всех товаров
+    // Общая стоимость всех товаров — теперь через Stream API
     public int getTotalPrice() {
-        int total = 0;
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                total += product.getPrice();
-            }
-        }
-        return total;
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
-    // Вывод содержимого корзины
+    // Печать корзины — теперь через forEach
     public void printBasket() {
         if (products.isEmpty()) {
             System.out.println("в корзине пусто");
             return;
         }
 
-        int total = 0;
-        for (Map.Entry<String, List<Product>> entry : products.entrySet()) {
-            for (Product product : entry.getValue()) {
-                System.out.println(product.getName() + ": " + product.getPrice());
-                total += product.getPrice();
-            }
-        }
-        System.out.println("Итого: " + total);
+        products.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(product -> System.out.println(product.getName() + ": " + product.getPrice()));
+
+        System.out.println("Итого: " + getTotalPrice());
     }
 
     // Проверка, есть ли продукт с указанным именем

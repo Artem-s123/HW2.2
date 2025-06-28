@@ -19,12 +19,12 @@ public class FixPriceProduct extends Product {
 
     @Override
     public boolean isSpecial() {
-        return false; // или true, если нужно пометить как спец. товар
+        return false;
     }
 
     @Override
     public String getType() {
-        return "PRODUCT"; // Тип объекта для поиска
+        return "PRODUCT";
     }
 
     @Override
@@ -34,6 +34,6 @@ public class FixPriceProduct extends Product {
 
     @Override
     public String getSearchTerm() {
-        return getName(); // Поиск по названию
+        return getName();
     }
 }

@@ -1,6 +1,7 @@
 package org.skypro.skyshop.search;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
 
@@ -11,24 +12,18 @@ public class SearchEngine {
     }
 
     public void add(Searchable item) {
-        items.add(item); // HashSet не позволит добавить дубликат (если equals/hashCode работают правильно)
+        items.add(item); // HashSet не позволит добавить дубликат
     }
 
-    // 🔎 Метод поиска — теперь возвращает отсортированный TreeSet
+    // 🔎 Метод поиска — теперь с использованием Stream API
     public Set<Searchable> search(String query) {
         Comparator<Searchable> comparator = Comparator
                 .comparingInt((Searchable s) -> s.getName().length()).reversed()
                 .thenComparing(Searchable::getName);
 
-        Set<Searchable> results = new TreeSet<>(comparator);
-
-        for (Searchable item : items) {
-            if (item.matches(query)) {
-                results.add(item);
-            }
-        }
-
-        return results;
+        return items.stream()
+                .filter(item -> item.matches(query))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(comparator)));
     }
 
     public Searchable findBestResult(String query) throws BestResultNotFound {
@@ -64,3 +59,4 @@ public class SearchEngine {
         return count;
     }
 }
+

@@ -14,7 +14,6 @@ public class Article implements Searchable {
 
     @Override
     public String getSearchTerm() {
-        // Для поиска используем и название, и содержание
         return name + " " + content;
     }
 
@@ -33,17 +32,11 @@ public class Article implements Searchable {
         return "Статья: " + name;
     }
 
-    // 🔧 equals и hashCode по имени статьи
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Article)) return false;
         Article article = (Article) o;
         return name.equals(article.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
     }
 }
